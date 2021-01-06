@@ -1,4 +1,6 @@
-Population: 1000
+Number of Households: 1000
+Number of people per household: 4
 Beta: 0.3
+BetaH: 0.6
 Ny: 0.120
 Gamma: 0.2

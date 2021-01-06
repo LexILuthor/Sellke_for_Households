@@ -1,12 +1,11 @@
 //
-// Created by popcorn on 29/11/2020.
+// Created by popcorn on 06/01/2021.
 //
 
-#ifndef SELLKE_SELLKE_H
-#define SELLKE_SELLKE_H
+#ifndef SELLKE_FOR_HOUSEHOLDS_SELLKE_FOR_HOUSEHOLDS_H
+#define SELLKE_FOR_HOUSEHOLDS_SELLKE_FOR_HOUSEHOLDS_H
 
-#endif //SELLKE_SELLKE_H
-
+#endif //SELLKE_FOR_HOUSEHOLDS_SELLKE_FOR_HOUSEHOLDS_H
 
 std::vector<double> sellke(int N, double beta, double ny, double gamma, std::vector<double> &startInfection,
                            std::vector<double> &endInfection);

@@ -1,13 +1,14 @@
 //
-// Created by popcorn on 26/11/2020.
+// Created by popcorn on 06/01/2021.
 //
 
 
-
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include<random>
 #include <time.h>
+#include <algorithm>
 #include "myFunctions.h"
 
 
@@ -56,5 +57,57 @@ void activeintervels(double from, std::vector<double> &startInfection, std::vect
         } else if (startInfection[i] < from && endInfection[i] > from) {
             numberofactiveintervals++;
         }
+    }
+}
+
+
+void read_Parameters_From_File(std::string inputpath, int &number_of_households, int &number_of_people_per_household,
+                               double &beta, double &betaH, double &ny, double &gamma) {
+
+    std::string line;
+    std::ifstream infile(inputpath);
+    if (infile.is_open()) {
+        getline(infile, line, ':');
+        getline(infile, line);
+        number_of_households = std::stoi(line);
+
+        getline(infile, line, ':');
+        getline(infile, line);
+        number_of_people_per_household = std::stoi(line);
+
+        getline(infile, line, ':');
+        getline(infile, line);
+        beta = std::stod(line);
+
+        getline(infile, line, ':');
+        getline(infile, line);
+        betaH = std::stod(line);
+
+        getline(infile, line, ':');
+        getline(infile, line);
+        ny = std::stod(line);
+
+        getline(infile, line, ':');
+        getline(infile, line);
+        gamma = std::stod(line);
+
+        infile.close();
+    } else std::cout << "Unable to open file";
+
+}
+
+
+
+void write_the_csv_file(std::string outputpath, std::vector<std::vector<int> > &SEIR, std::vector<double> &temp) {
+    std::ofstream outfile(outputpath);
+    if (!outfile.is_open()) {
+        std::cout << "Unable to open file";
+    } else {
+        for (int i = 0; i < temp.size(); i++) {
+
+            outfile << SEIR[0][i] << ",\t" << SEIR[1][i] << ",\t" << SEIR[2][i] << ",\t" << SEIR[3][i] << ",\t"
+                    << temp[i] << "\n";
+        }
+        outfile.close();
     }
 }

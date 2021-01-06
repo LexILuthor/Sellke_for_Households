@@ -1,12 +1,12 @@
 //
-// Created by popcorn on 29/11/2020.
+// Created by popcorn on 06/01/2021.
 //
 
 
 #include <vector>
 #include <iostream>
 #include "myFunctions.h"
-#include "Sellke.h"
+#include "Sellke_for_households.h"
 
 std::vector<double> sellke(int N, double beta, double ny, double gamma, std::vector<double> &startInfection,
                            std::vector<double> &endInfection) {

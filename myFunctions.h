@@ -1,30 +1,28 @@
 //
-// Created by popcorn on 29/11/2020.
+// Created by popcorn on 06/01/2021.
 //
 
-#ifndef SELLKE_MYFUNCTIONS_H
-#define SELLKE_MYFUNCTIONS_H
+#ifndef SELLKE_FOR_HOUSEHOLDS_MYFUNCTIONS_H
+#define SELLKE_FOR_HOUSEHOLDS_MYFUNCTIONS_H
 
-#endif //SELLKE_MYFUNCTIONS_H
+#endif //SELLKE_FOR_HOUSEHOLDS_MYFUNCTIONS_H
 
-/*
-
-std::vector<double> rand_Unif(int nSamples = 1, double a = 0, double b = 1);
-
-std::vector<double> rand_Exponential(int nSamples = 1, double lambda = 1);
-
-*/
 
 void generate(std::vector<double> &Q, std::vector<double> &L, std::vector<double> &I, double ny, double gamma, int N);
 
 
 void activeintervels(double from, std::vector<double> &startInfection, std::vector<double> &endInfection,
-                    std::vector<size_t> indexEndInfection,int &last);
+                     std::vector<size_t> indexEndInfection, int &last);
+
+void read_Parameters_From_File(std::string inputpath, int &number_of_households, int &number_of_people_per_household,
+                               double &beta, double &betaH, double &ny, double &gamma);
+
+void write_the_csv_file(std::string outputpath, std::vector<std::vector<int> > &SEIR, std::vector<double> &temp);
 
 
 
+//template for the function that returns the ordered index
 
-//template for the function that returns the ordered inex
 #include <algorithm>
 #include <numeric>      // std::iota
 
@@ -44,6 +42,3 @@ std::vector<size_t> sort_indexes(const std::vector<T> &v) {
 
     return idx;
 }
-
-
-

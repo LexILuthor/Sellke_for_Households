@@ -4,20 +4,28 @@
 #include<cstdlib>
 #include<random>
 #include "myFunctions.h"
-#include "Sellke.h"
+#include "Sellke_for_households.h"
 
 
 int main() {
     //std::srand(3453);
 
-    char outputpath[] = "../OutputFIle/sellke.csv";
-    char inputpath[] = "../OutputFIle/InputSellke.txt";
+    char inputpath[] = "../OutputFile/InputSellke_households.txt";
+    char outputpath[] = "../OutputFile/sellke.csv";
+
 
     //Population
     int N;
 
-    //S->E
+    int number_of_households;
+
+    int number_of_people_per_household;
+
+    //S->E outside Household
     double beta;
+
+    //S->E inside Household
+    double betaH;
 
     // E-> I
     double ny;
@@ -26,29 +34,9 @@ int main() {
     double gamma;
 
 
-    std::string line;
-    std::ifstream infile(inputpath);
-    if (infile.is_open()) {
-        getline(infile, line, ':');
-        getline(infile, line);
-        N = std::stoi(line);
-
-        getline(infile, line, ':');
-        getline(infile, line);
-        beta = std::stod(line);
-
-        getline(infile, line, ':');
-        getline(infile, line);
-        ny = std::stod(line);
-
-        getline(infile, line, ':');
-        getline(infile, line);
-        gamma = std::stod(line);
-
-        infile.close();
-    } else std::cout << "Unable to open file";
-
-
+    read_Parameters_From_File(inputpath, number_of_households, number_of_people_per_household,
+                              beta, betaH, ny, gamma);
+    N = number_of_households * number_of_people_per_household;
 
     // Sellke algorithm.
     //"startInfection" will be the vector of the time the i-th individual become infected
@@ -66,10 +54,10 @@ int main() {
     SEIR[0][0] = N;
     std::sort(startInfection.begin(), startInfection.end());
     std::sort(endInfection.begin(), endInfection.end());
-    int t=0, s=0, e = 0;
+    int t = 0, s = 0, e = 0;
     int caso = 0;
 
-    while (t + s + e < total_steps-1) {
+    while (t + s + e < total_steps - 1) {
         if (t < last_infected + 1) {
             //setto caso uguale a:
             // 0 se il prossimo minimo è in time_vector (i.e avviene S->E)
@@ -120,20 +108,9 @@ int main() {
     }
 
 
-    // writing on the csv file
-    std::ofstream outfile(outputpath);
-    if (!outfile.is_open()) {
-        std::cout << "Unable to open file";
-    } else {
-        for (int i = 0; i < timeline.size(); i++) {
+    write_the_csv_file(outputpath,SEIR,timeline);
 
-            outfile << SEIR[0][i] << ",\t" << SEIR[1][i] << ",\t" << SEIR[2][i] << ",\t" << SEIR[3][i] << ",\t"
-                    << timeline[i] << "\n";
-        }
-        outfile.close();
-    }
 
-    
     return 0;
 
 }
