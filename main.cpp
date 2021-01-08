@@ -11,7 +11,7 @@ int main() {
     //std::srand(3453);
 
     char inputpath[] = "../InputOutputFile/InputSellke_households.txt";
-    char outputpath[] = "../InputOutputFile/sellke.csv";
+    char outputpath[] = "../InputOutputFile/sellke_for_households.csv";
 
 
     //Population
