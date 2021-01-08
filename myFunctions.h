@@ -8,7 +8,12 @@
 #endif //SELLKE_FOR_HOUSEHOLDS_MYFUNCTIONS_H
 
 
+void generate_and_decide_the_household(std::vector<double> &Q, std::vector<double> &L, std::vector<double> &I, double ny, double gamma, int N,
+              std::vector<size_t> &household_is);
+
 void generate(std::vector<double> &Q, std::vector<double> &L, std::vector<double> &I, double ny, double gamma, int N);
+
+int in_which(std::vector<size_t> &household_is, int i, int number_of_people_per_household);
 
 
 void activeintervels(double from, std::vector<double> &startInfection, std::vector<double> &endInfection,

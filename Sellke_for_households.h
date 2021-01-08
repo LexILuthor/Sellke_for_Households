@@ -7,8 +7,14 @@
 
 #endif //SELLKE_FOR_HOUSEHOLDS_SELLKE_FOR_HOUSEHOLDS_H
 
+
+std::vector<double>
+sellke_for_households(int number_of_households, int number_of_people_per_household, double beta, double betaH,
+                      double ny, double gamma, std::vector<std::vector<int> > &SEIR);
+
 std::vector<double> sellke(int N, double beta, double ny, double gamma, std::vector<double> &startInfection,
-                           std::vector<double> &endInfection);
+                           std::vector<double> &endInfection, std::vector<double> &Q, std::vector<double> &L,
+                           std::vector<double> &I, std::vector<bool> &has_already_been_exposed);
 
 
 double integral(double from, int last_infected, std::vector<double> &startInfection,
