@@ -11,7 +11,8 @@
 
 std::vector<double>
 sellke_for_households(int number_of_households, int number_of_people_per_household, double beta, double betaH,
-                      double ny, double gamma, std::vector<std::vector<int> > &SEIR) {
+                      double ny, double gamma, std::vector<double> &startInfection,
+                      std::vector<double> &endInfection) {
 
     int N = number_of_households * number_of_people_per_household;
     // Generate Q, L, I respectively the vectors of the resistance to the infection, expose time, infected time
@@ -54,8 +55,7 @@ sellke_for_households(int number_of_households, int number_of_people_per_househo
     //startInfection = time_vector+ L dove L è il vettore degli exposed times
 
 
-    std::vector<double> startInfection;
-    std::vector<double> endInfection;
+
 
     startInfection.push_back(L[0]);
     endInfection.push_back(L[0] + I[0]);
@@ -99,22 +99,22 @@ sellke_for_households(int number_of_households, int number_of_people_per_househo
     endInfection_of_household.push_back(L[last_infected] + ts + I[last_infected]);
 
     std::vector<double> time_vector_tmp(Q_of_infected_household.size(), -1);
-    time_vector_tmp=sellke(number_of_people_per_household, betaH, ny, gamma, startInfection_of_household,
-           endInfection_of_household, Q_of_infected_household, L_of_infected_household,
-           I_of_infected_household, has_already_been_exposed);
+    time_vector_tmp = sellke(number_of_people_per_household, betaH, ny, gamma, startInfection_of_household,
+                             endInfection_of_household, Q_of_infected_household, L_of_infected_household,
+                             I_of_infected_household, has_already_been_exposed);
 
-    for(int i=1;i<startInfection_of_household.size();i++){
+    for (int i = 1; i < startInfection_of_household.size(); i++) {
         startInfection.push_back(startInfection_of_household[i]);
     }
-    for(int i=1;i<endInfection_of_household.size();i++){
+    for (int i = 1; i < endInfection_of_household.size(); i++) {
         endInfection.push_back(endInfection_of_household[i]);
     }
 
-    int tmp=1;
+    int tmp = 1;
     for (int i = 0; i < number_of_people_per_household; i++) {
         int index_person_in_household = household_list[infected_household][i];
         if (!has_already_been_exposed[index_person_in_household]) {
-            time_vector[index_person_in_household]=time_vector_tmp[tmp];
+            time_vector[index_person_in_household] = time_vector_tmp[tmp];
             tmp++;
         }
     }
@@ -168,29 +168,25 @@ sellke_for_households(int number_of_households, int number_of_people_per_househo
                 endInfection_of_household.push_back(L[last_infected] + ts + I[last_infected]);
 
                 std::vector<double> time_vector_tmp(Q_of_infected_household.size(), -1);
-                time_vector_tmp=sellke(number_of_people_per_household, betaH, ny, gamma, startInfection_of_household,
-                                       endInfection_of_household, Q_of_infected_household, L_of_infected_household,
-                                       I_of_infected_household, has_already_been_exposed);
+                time_vector_tmp = sellke(number_of_people_per_household, betaH, ny, gamma, startInfection_of_household,
+                                         endInfection_of_household, Q_of_infected_household, L_of_infected_household,
+                                         I_of_infected_household, has_already_been_exposed);
 
-                for(int i=1;i<startInfection_of_household.size();i++){
+                for (int i = 1; i < startInfection_of_household.size(); i++) {
                     startInfection.push_back(startInfection_of_household[i]);
                 }
-                for(int i=1;i<endInfection_of_household.size();i++){
+                for (int i = 1; i < endInfection_of_household.size(); i++) {
                     endInfection.push_back(endInfection_of_household[i]);
                 }
 
-                int tmp=1;
+                int tmp = 1;
                 for (int i = 0; i < number_of_people_per_household; i++) {
                     int index_person_in_household = household_list[infected_household][i];
                     if (!has_already_been_exposed[index_person_in_household]) {
-                        time_vector[index_person_in_household]=time_vector_tmp[tmp];
+                        time_vector[index_person_in_household] = time_vector_tmp[tmp];
                         tmp++;
                     }
                 }
-
-
-
-
 
 
             }

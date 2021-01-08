@@ -10,8 +10,8 @@
 int main() {
     //std::srand(3453);
 
-    char inputpath[] = "../OutputFile/InputSellke_households.txt";
-    char outputpath[] = "../OutputFile/sellke.csv";
+    char inputpath[] = "../InputOutputFile/InputSellke_households.txt";
+    char outputpath[] = "../InputOutputFile/sellke.csv";
 
 
     //Population
@@ -44,7 +44,7 @@ int main() {
     //"time_vector" will be the vector of the time the i-th individual has the firs infectous contact
     std::vector<double> startInfection;
     std::vector<double> endInfection;
-    std::vector<double> time_vector = sellke(N, beta, ny, gamma, startInfection, endInfection);
+    std::vector<double> time_vector = sellke_for_households(number_of_households,number_of_people_per_household, beta, betaH,ny, gamma, startInfection, endInfection);
     int last_infected = startInfection.size() - 1;
 
 
